@@ -1550,6 +1550,83 @@ FUNCTION {sort.format.names}
   if$
 }
 
+FUNCTION {sort.format.month}
+{ 't :=
+  t #1 #3 substring$ "Jan" =
+  t #1 #3 substring$ "jan" =
+  or
+  { "12" }
+    { t #1 #3 substring$ "Feb" =
+      t #1 #3 substring$ "feb" =
+      or
+      { "11" }
+      { t #1 #3 substring$ "Mar" =
+        t #1 #3 substring$ "mar" =
+        or
+        { "10" }
+        { t #1 #3 substring$ "Apr" =
+          t #1 #3 substring$ "apr" =
+          or
+          { "09" }
+          { t #1 #3 substring$ "May" =
+            t #1 #3 substring$ "may" =
+            or
+            { "08" }
+            { t #1 #3 substring$ "Jun" =
+              t #1 #3 substring$ "jun" =
+              or
+              { "07" }
+              { t #1 #3 substring$ "Jul" =
+                t #1 #3 substring$ "jul" =
+                or
+                { "06" }
+                { t #1 #3 substring$ "Aug" =
+                  t #1 #3 substring$ "aug" =
+                  or
+                  { "05" }
+                  { t #1 #3 substring$ "Sep" =
+                    t #1 #3 substring$ "sep" =
+                    or
+                    { "04" }
+                    { t #1 #3 substring$ "Oct" =
+                      t #1 #3 substring$ "oct" =
+                      or
+                      { "03" }
+                      { t #1 #3 substring$ "Nov" =
+                        t #1 #3 substring$ "nov" =
+                        or
+                        { "02" }
+                        { t #1 #3 substring$ "Dec" =
+                          t #1 #3 substring$ "dec" =
+                          or
+                          { "01" }
+                          { "13" } % No month specified
+                        if$
+                        }
+                      if$
+                      }
+                    if$
+                    }
+                  if$
+                  }
+                if$
+                }
+              if$
+              }
+            if$
+            }
+          if$
+          }
+        if$
+        }
+      if$
+      }
+    if$
+    }
+  if$
+ 
+}
+
 FUNCTION {sort.format.title}
 { 't :=
   "A " #2
@@ -1591,6 +1668,58 @@ FUNCTION {author.editor.sort}
   if$
 }
 
+% year sorting from  https://github.com/plessl/latex-goodies/blob/master/bibstyles/plainyr-rev/plainyr-rev.bst
+% Take year, assuming it is four-digit, convert to int, subtract from 9999
+% and return as string on stack. For reverse chronological sorting.
+INTEGERS { pos k res }
+STRINGS { tmpyear }
+FUNCTION {reverse.year}
+{
+ % ensure four digit year
+ year empty$ 
+   { "9999" "missing year in " cite$ * ", using 9999 for sorting" * warning$ }  
+   { year text.length$ #4 = 
+       { year }
+       { "9999" "year not 4-digit in " cite$ * ", using 9999 for sorting" * warning$ }
+     if$
+   }
+ if$
+ 'tmpyear :=
+
+ #0 'res := % will contain year as integer
+
+ #5 'pos := % index into year, we pre-decrement, will enter body with 4..1
+ { pos #1 - 'pos := pos }
+ { 
+   % extract digit at pos, convert to ASCII, subtract 48 -> 0..9, store in k
+   tmpyear pos #1 substring$ chr.to.int$ #48 - 'k :=
+
+   { k duplicate$ #1 - 'k := }
+   {
+     pos #1 = 
+       { res #1000 + 'res := }
+	{
+	  pos #2 =
+	    { res #100 + 'res := }
+	    {
+	      pos #3 =
+		{ res #10 + 'res := }
+		{ res #1 + 'res := }
+	      if$ 
+	    }
+	  if$
+	}
+     if$
+   }
+   while$
+ }
+ while$
+
+ #9999 res - 
+ int.to.str$
+}
+
+
 FUNCTION {editor.sort}
 { editor empty$
     { key empty$
@@ -1605,32 +1734,35 @@ FUNCTION {editor.sort}
 }
 
 FUNCTION {presort}
-{ calc.label
-  label sortify
+{
+  % sort by reverse year
+  reverse.year
   "    "
   *
-  type$ "book" =
-  type$ "inbook" =
-  or
-    'author.editor.sort
-    { type$ "proceedings" =
-        'editor.sort
-        'author.sort
-      if$
-    }
-  if$
-  #1 entry.max$ substring$
-  'sort.label :=
-  sort.label
+  month field.or.null
+  sort.format.month
+  *
+  " "
+  *
+  author field.or.null
+  sort.format.names
   *
   "    "
   *
   title field.or.null
   sort.format.title
   *
+
+  % cite key for definitive disambiguation
+  cite$
+  *
+
+  % limit to maximum sort key length
   #1 entry.max$ substring$
+
   'sort.key$ :=
 }
+
 
 ITERATE {presort}
 

@@ -1109,6 +1109,7 @@ FUNCTION {article}
     { format.pid output }
     { format.journal.pages }
   if$
+  format.title "title" output.check
   format.note output
   fin.entry
   format.adsurl
@@ -1260,6 +1261,7 @@ FUNCTION {inproceedings}
 %  if$
   format.pages output
   format.note output
+  format.title "title" output.check
   fin.entry
   format.adsurl
   fin.entry

@@ -534,7 +534,7 @@ FUNCTION {format.note}
 FUNCTION {format.title}
 { title empty$
     { "" }
-    { title
+    { "``" title "t" change.case$ * "''" *
     }
   if$
 }

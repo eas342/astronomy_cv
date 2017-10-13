@@ -11,6 +11,7 @@
 \usepackage{enumitem}
 %\usepackage{bibunits}
 \usepackage[numbers]{natbib}
+\usepackage{xstring}
 
 %\defaultbibliography{this_biblio}
 %\defaultbibliographystyle{ieetr}
@@ -22,6 +23,20 @@
 \newcommand{\procspie}{SPIE}
 \newcommand{\pasp}{PASP}
 \newcommand{\rsquo}{'}
+
+\def\FormatName#1{%
+  \def\myname{{Schlawin}, E.}%
+  \edef\name{#1}%
+  \ifx\name\myname
+    \textbf{#1}%
+  \else
+    #1%
+  \fi
+}
+
+%\def\FormatName#1{%
+%  \IfSubStr{#1}{"{Schlawin}, E."}{\textbf{#1}}{#1}%
+%}
 
 %SetFonts
 
@@ -68,10 +83,21 @@ github: \href{https://github.com/eas342}{eas342}
 
 \vspace{-0.2in}
 \subsection*{Publications}
-\nocite{schlawin2014,schlawin2017dhs,schlawin2017bdVar,greene2017jatisNIRCam,schlawin2017tserSpeXPipeline,greene2016slitlessGrisms,schlawin2016kic1255,schlawin2010,schlawin2016kic1255,schlawin2014TSpec,muirheadKOI961}
+\nocite{schlawin2014}
+\nocite{schlawin2017dhs}
+\nocite{schlawin2017bdVar}
+\nocite{greene2017jatisNIRCam}
+%\nocite{schlawin2017tserSpeXPipeline}
+\nocite{greene2016slitlessGrisms}
+\nocite{schlawin2016kic1255}
+\nocite{schlawin2010}
+\nocite{schlawin2016kic1255}
+\nocite{schlawin2014TSpec}
+\nocite{muirheadKOI961}
+
 \begingroup
 \renewcommand{\section}[2]{}%
-\bibliographystyle{apj}
+\bibliographystyle{es_apj}
 \bibliography{this_biblio}
 \endgroup
 
@@ -93,6 +119,38 @@ github: \href{https://github.com/eas342}{eas342}
         \item 2009: Oberlin College Norm Craig Student/Athlete Award
 \end{itemize}
 
+\subsection*{Postdoctoral Research Experience}
+\begin{itemize}[noitemsep]
+	\item 2015-2017: NIRCam GTO Transiting Exoplanet Program with JWST, led by Tom Greene. Simulated spectra with CHIMERA models, retrievals of atmospheric parameters, prepared observations with Astronomers Proposal Tool
+	\item 2015-2017: NIRCam Support, PI Marcia Rieke. Mission support for NIRCam during cryo-vacuum testing at NASA Goddard, NASA Johnson and coordination with Space Telescope Science Institute?s software and operations, including a proposed new observing mode
+\end{itemize}
+
+\subsection*{Graduate Research Experience}
+\begin{itemize}[noitemsep]
+	\item 2011-2015: Cornell Exoplanet Spectra, advised by Terry Herter at Cornell University -- Analyzed infrared spectra of hot Jupiter exoplanets and the possibly disintegrating planet KIC 12557548b
+	\item 2012-2015: TripleSpec4 Construction, PI Terry Herter at Cornell University -- Designed slit viewing optics, toleranced optics and constructed suspension straps and small parts for TS4, an infrared spectrograph for the Blanco telescope in Chile
+	\item 2009-2015: Cornell Exoplanet Research Group, advised by James P. Lloyd at Cornell University -- Transit Spectroscopy -- Analyzed Hubble COS, ACS and STIS data to study the thermospheres of HD209458b and HD189733b taking into account limb brightening. Also observed at Palomar Observatory with the TEDI and TripleSpec instruments
+\end{itemize}
+
+\subsection*{Pre-Graduate Experience}
+\begin{itemize}[noitemsep]
+	\item 2008-2009: Herschel Inner Galaxy Gas Survey (HIGGS), advised by Chris Martin at Oberlin College. Honors Research -- Modeled radiative transfer of sub-millimeter lines to prepare for the Herschel Space Observatory
+	\item 2008 Summer: Cooling Lines in the Interstellar Medium (ISM), advised by Danny Dale at the University of Wyoming -- Compared Mid-infrared and far-infrared data to find correlations in ISM coolants
+	\item 2007-2008: Oberlin Pulsar Lab, advised by Dan Stinebring at Oberlin College --Used a 64 node supercomputer to simulate plasma lenses in the ISM and their effects on Secondary Spectra of pulsar light
+	\item 2007 Summer: Wyoming Infrared Observatory REU, advised by Danny Dale at the University of Wyoming: Researched ISM cooling lines, comparing Spitzer mid-infrared data to Infrared Space Observatory far-infrared data with Danny Dale, University of Wyoming
+	\item 2006 Summer: Oberlin Observatory CCD Imaging, advised by Chris Martin at Oberlin College -- Wrote a customized manual on CCD imaging, from capturing, to processing and analyzing.
+	\item 2005 and 2004 Summers: Dusty Plasma Experiment, advised by Andrew Zwicker at Princeton Plasma Physics Lab (PPPL) -- studied the behavior of silicon dust clouds suspended in plasmas
+\end{itemize}
+
+\subsection*{Observing Proposals}
+\begin{itemize}[noitemsep]
+    \item 2016 Spring and Fall -- Characterization of solar analogs for NIRCam flux calibration.
+    \item 2016 Spring: 5 Nights -- Kuiper 61-inch Long Term Monitoring of the disintegrating planet candidate KIC 12557548 b.
+    \item 2014 Fall: 5 Nights -- IRTF Observing Proposal: Addressing Discrepancies in KIC 12557548b?s Transmission Spectrum
+    \item 2013 Fall: 4 Nights -- IRTF Observing Proposal -- A Transmission Spectrum of the Possibly Disintegrating Planet KIC 12557548b
+    \item 2012 Fall: 1 Night - NOAO Observing Proposal -- Imager Corrected NIR Spectro-Photometry of a Hot Jupiter
+\end{itemize}
+
 \subsection*{Outreach and Mentoring Activities}
 \begin{itemize}[noitemsep]
     \item 2016: Blue Marble Astrobiology Academy, Tucson, AZ -- planet activities teacher. Blue marble camp engages traditionally underserved school students in science engineering and math skills over the fun topic of planets, habitability and astrobiology.
@@ -103,13 +161,6 @@ github: \href{https://github.com/eas342}{eas342}
     \item 2009-2015: ``Curious? Ask an Astronomer'', Ithaca, NY - volunteer for website, live Q\&A and 2011 podcast, This Year in Exoplanets. ``Curious?" answers the publics' many different questions about space, the Solar System and the latest astronomy news.
     \item 2006-2008: Oberlin Astronomy Club, Oberlin OH - president. Brought membership from 0 to 250
  \end{itemize}
-
-\subsection*{Observing Proposals}
-2016 Spring and Fall ? Characterization of solar analogs for NIRCam flux calibration.
-2016 Spring: 5 Nights ? Kuiper 61-inch Long Term Monitoring of the disintegrating planet candidate KIC 12557548 b.
-2014 Fall: 5 Nights ? IRTF Observing Proposal: Addressing Discrepancies in KIC 12557548b?s Transmission Spectrum
-2013 Fall: 4 Nights - IRTF Observing Proposal ? A Transmission Spectrum of the Possibly Disintegrating Planet KIC 12557548b
-2012 Fall: 1 Night - NOAO Observing Proposal - Imager Corrected NIR Spectro-Photometry of a Hot Jupiter
 
 \subsection*{Service and Mentoring}
 \begin{itemize}[noitemsep]

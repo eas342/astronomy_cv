@@ -398,9 +398,9 @@ FUNCTION {format.names}
     {}
   if$
   { namesleft #0 > }
-  { s nameptr
+  { "\FormatName{" s nameptr
     "{vv~}{ll}{, jj}{, f.}" format.name$
-    't :=
+     * "}" * 't :=
     nameptr #1 >
       {
 	nameptr #1 - numtrunc = 

@@ -1715,7 +1715,7 @@ FUNCTION {reverse.year}
  }
  while$
 
- #9999 res - 
+ #9999 res -
  int.to.str$
 }
 
@@ -1828,9 +1828,10 @@ FUNCTION {bib.sort.order}
   'sort.key$ :=
 }
 
-ITERATE {bib.sort.order}
+%% Removed this extra sorting because it puts the articles back in chronological order
+%ITERATE {bib.sort.order}
 
-SORT
+%SORT
 
 FUNCTION {begin.bib}
 { preamble$ empty$

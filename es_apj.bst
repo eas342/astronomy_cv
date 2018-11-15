@@ -1334,6 +1334,7 @@ FUNCTION {phdthesis}
   address output
   format.note output
   format.pid output
+  format.title "title" output.check
   fin.entry
   format.adsurl
   fin.entry

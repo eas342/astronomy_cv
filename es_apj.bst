@@ -1736,6 +1736,7 @@ FUNCTION {editor.sort}
 
 FUNCTION {presort}
 {
+  calc.label
   % sort by reverse year
   reverse.year
   "    "
